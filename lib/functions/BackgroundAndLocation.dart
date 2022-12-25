@@ -24,7 +24,7 @@ void backgroundTry() async {
     notificationTitle: "flutter_background example app",
     notificationText: "Background notification for keeping the example app running in the background",
     notificationImportance: AndroidNotificationImportance.Default,
-    notificationIcon: AndroidResource(name: 'background_icon', defType: 'drawable'), // Default is ic_launcher from folder mipmap
+    // notificationIcon: AndroidResource(name: 'background_icon', defType: 'drawable'), // Default is ic_launcher from folder mipmap
   );
   bool success = await FlutterBackground.initialize(androidConfig: androidConfig);
   print("Success in button is $success and it is in intialise");

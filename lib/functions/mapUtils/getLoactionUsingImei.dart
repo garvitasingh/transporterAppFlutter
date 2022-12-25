@@ -27,41 +27,53 @@ class MapUtil {
   static var Get;
 
   //TRACCAR API CALLS------------------------------------------------------------
-  getDevices() async {
-    try {
-      print("inside device");
-      print(traccarUser);
-      http.Response response = await http.get(Uri.parse("$traccarApi/devices"),
-          headers: <String, String>{
-            'authorization': basicAuth,
-            'Accept': 'application/json'
-          });
-      print(response.statusCode);
-      print(response.body);
-      var jsonData = await jsonDecode(response.body);
-      print(response.body);
-      var devicesList = [];
-      if (response.statusCode == 200) {
-        for (var json in jsonData) {
-          DeviceModel devicemodel = new DeviceModel();
-          // gpsDataModel.id = json["id"] != null ? json["id"] : 'NA';
-          devicemodel.deviceId = json["id"] != null ? json["id"] : 0;
-          devicemodel.truckno = json["name"] != null ? json["name"] : 'NA';
-          devicemodel.imei = json["uniqueId"] != null ? json["uniqueId"] : 'NA';
-          devicemodel.status = json["status"] != null ? json["status"] : 'NA';
-          devicemodel.lastUpdate =
-              json["lastUpdate"] != null ? json["lastUpdate"] : 'NA';
-
-          devicesList.add(devicemodel);
-        }
-        return devicesList;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print(e);
-      return null;
+  Future<List<DeviceModel>> getDevices() async {
+    http.Response response = await http.get(Uri.parse("$traccarApi/devices"),
+              headers: <String, String>{
+                'authorization': basicAuth,
+                'Accept': 'application/json'
+              });
+    if(response.statusCode ==200){
+      final List device = json.decode(response.body);
+      print(device);
+      return device.map((json) => DeviceModel.fromJson(json)).toList();
+    }else{
+      throw Exception("error");
     }
+    // try {
+    //   print("inside device");
+    //   print(traccarUser);
+    //   http.Response response = await http.get(Uri.parse("$traccarApi/devices"),
+    //       headers: <String, String>{
+    //         'authorization': basicAuth,
+    //         'Accept': 'application/json'
+    //       });
+    //   print(response.statusCode);
+    //   print(response.body);
+    //   var jsonData = await jsonDecode(response.body);
+    //   print(response.body);
+    //   var devicesList = [];
+    //   if (response.statusCode == 200) {
+    //     for (var json in jsonData) {
+    //       DeviceModel devicemodel = new DeviceModel();
+    //       // gpsDataModel.id = json["id"] != null ? json["id"] : 'NA';
+    //       devicemodel.deviceId = json["id"] != null ? json["id"] : 'NA';
+    //       devicemodel.truckno = json["name"] != null ? json["name"] : 'NA';
+    //       devicemodel.imei = json["uniqueId"] != null ? json["uniqueId"] : 'NA';
+    //       devicemodel.status = json["status"] != null ? json["status"] : 'NA';
+    //       devicemodel.lastUpdate =
+    //           json["lastUpdate"] != null ? json["lastUpdate"] : 'NA';
+    //
+    //       devicesList.add(devicemodel);
+    //     }
+    //     return devicesList;
+    //   } else {
+    //     return null;
+    //   }
+    // } catch (e) {
+    //   print(e);
+    //   return null;
+    // }
   }
 
   getTraccarPositionforAll() async {

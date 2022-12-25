@@ -96,6 +96,7 @@ class _MyTrucksState extends State<MyTrucks> {
         getMyDevices(i);
       }
     });*/
+
   }
 
   @override
@@ -750,7 +751,8 @@ class _MyTrucksState extends State<MyTrucks> {
       // } else {
       //   gpsDataList.add(gpsDataModel);
       // }
-
+      print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+      print(gpsDataList.length);
       // gpsDataList.add(gpsDataModel);
       print("gpsDataList :- ");
       print(gpsDataList);

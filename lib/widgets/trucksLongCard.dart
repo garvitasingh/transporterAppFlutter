@@ -4,10 +4,12 @@ import 'package:liveasy/constants/radius.dart';
 import 'package:liveasy/constants/spaces.dart';
 import 'package:liveasy/models/truckModel.dart';
 
+import '../models/deviceModel.dart';
+
 class TrucksLongCard extends StatelessWidget {
   final Border? borderCard;
-  final TruckModel truckData;
-
+  // final TruckModel truckData;
+  final DeviceModel truckData;
   TrucksLongCard({
     required this.truckData,
     required this.borderCard
@@ -46,7 +48,7 @@ class TrucksLongCard extends StatelessWidget {
             SizedBox(
               width: space_4,
             ),
-            Text("${truckData.truckNo}"),
+            Text("${truckData.truckno}"),
           ],
         ),
       ),

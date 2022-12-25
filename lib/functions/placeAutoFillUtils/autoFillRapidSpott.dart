@@ -8,6 +8,7 @@ Future<List<AutoFillMMIModel>> fillCity(String cityName) async{
     citydetails = await APIService().get(cityName);  //spott api of rapid api is used for place autosuggestion.
     for (var i = 0; i < citydetails.length; i++) {
       AutoFillMMIModel locationCardsModal = new AutoFillMMIModel(
+        placeMain: '${citydetails[i].name}',
         placeName: "${citydetails[i].name}",
           placeCityName: "",
           placeStateName: "${citydetails[i].adminDivision1!.name}");

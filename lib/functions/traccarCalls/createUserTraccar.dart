@@ -15,7 +15,7 @@ Future<String?> createUserTraccar(String? token, String? mobileNum) async {
     "password": traccarPass,
     "email": mobileNum,
     "phone": mobileNum,
-    "attributes": {"notificationTokens": "$token", "timezone": "Asia/Kolkata"}
+    "attributes": {"notificationTokens": "$token", "timezone": "Asia/Kolkata"},
   };
   String body = json.encode(data);
 
@@ -54,7 +54,7 @@ Future<String?> createUserTraccar(String? token, String? mobileNum) async {
           "attributes": {
             "notificationTokens": "$token",
             "timezone": "Asia/Kolkata"
-          }
+          },
         };
         body = json.encode(data);
 

@@ -14,6 +14,7 @@ Future<List<AutoFillMMIModel>> fillCityGoogle(String cityName) async{
 
   http.StreamedResponse response = await request.send();
   List<AutoFillMMIModel> card = [];
+  String place;
   if (response.statusCode == 200) {
     // print(await response.stream.bytesToString());
     var res=await response.stream.bytesToString();
@@ -21,7 +22,8 @@ Future<List<AutoFillMMIModel>> fillCityGoogle(String cityName) async{
     address = address["predictions"];
 // print(address);
     for (var json in address) {
-      print(json["description"]);
+      // print(json["description"]);
+      place = json["description"];
       List<String> result=json["description"]!.split(",");
       int resultLength = 0;
       for (var r in result) {
@@ -31,7 +33,8 @@ Future<List<AutoFillMMIModel>> fillCityGoogle(String cityName) async{
         print(r);
       }
       AutoFillMMIModel locationCardsModal = new AutoFillMMIModel(
-        placeName: "${ result[0].toString()}",
+        placeMain: "${ result[0].toString()}",
+        placeName: '${place}',
           placeCityName:"${ result[resultLength - 3].toString()}",
           // placeStateName: json["placeAddress"]\
           placeStateName:  "${result[resultLength - 2].toString()}"

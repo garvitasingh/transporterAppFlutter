@@ -213,6 +213,7 @@ class _CityNameInputScreenState extends State<CityNameInputScreen> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) =>
                                   AutoFillDataDisplayCard(
+                                    snapshot.data[index].placeMain,
                                     snapshot.data[index].placeName,
                                       snapshot.data[index].placeCityName,
                                       snapshot.data[index].placeStateName, () {

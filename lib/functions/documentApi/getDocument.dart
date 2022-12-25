@@ -19,7 +19,6 @@ import 'package:flutter_config/flutter_config.dart';
       var jsonData = json.decode(response.body);
       for(var jsondata in jsonData['documents']){
         if(jsondata['documentType'][0] == "P"){
-          print("dddddde");
           print(jsondata['documentLink']);
           imageLink.add(jsondata['documentLink']);
         }

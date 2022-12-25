@@ -54,6 +54,7 @@ class _BuyGPSTrucksStackState extends State<BuyGPSTrucksStack> {
   }
   @override
   Widget build(BuildContext context) {
+    print("hiiiiiiii ${widget.truckDataList[0].truckno}");
     return Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -94,10 +95,12 @@ class _BuyGPSTrucksStackState extends State<BuyGPSTrucksStack> {
                 itemCount: widget.truckDataList.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
+                  print("askkkkweqqqqqqqqqqkkkkka ${index}");
                   return GestureDetector(
                     onTap: () {
                       _onSelected(index);
-                      truckID = widget.truckDataList[index].truckId;
+                      truckID = widget.truckDataList[index].deviceId.toString();
+                      print("herrrrrrrrrjhjhj ${widget.truckDataList[index].deviceId}");
                       updateButtonController.updateTruckID(truckID);
                       if(updateButtonController.updateRadioButton.value == false || truckID == null) {
                         updateButtonController.updateButtonHud(false);
@@ -105,12 +108,13 @@ class _BuyGPSTrucksStackState extends State<BuyGPSTrucksStack> {
                         updateButtonController.updateButtonHud(true);
                       }
                     },
-                    child: TrucksLongCard(
+                    child:
+                    TrucksLongCard(
                         truckData: widget.truckDataList[index],
                         borderCard: _selectedIndex != null && _selectedIndex == index
                             ? Border.all(color: bidBackground)
                             : null
-                    ),
+                    )
                   );
                 }),
           ),
@@ -119,6 +123,7 @@ class _BuyGPSTrucksStackState extends State<BuyGPSTrucksStack> {
             child: BuyGPSPayButton(
                 durationGroupValue: widget.durationGroupValue,
                 truckID: truckID,
+                truckDataList: widget.truckDataList,
                 groupValue: widget.groupValue,
                 currentAddress: widget.currentAddress,
                 context: widget.context,

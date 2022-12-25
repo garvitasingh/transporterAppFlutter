@@ -24,6 +24,10 @@ import 'package:liveasy/widgets/buyGPSTrucksStack.dart';
 import 'package:liveasy/widgets/searchLoadWidget.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../functions/deviceApiCalls.dart';
+import '../functions/mapUtils/getLoactionUsingImei.dart';
+import '../functions/trackScreenFunctions.dart';
+
 class BuyGpsScreen extends StatefulWidget {
   const BuyGpsScreen({Key? key}) : super(key: key);
 
@@ -39,7 +43,8 @@ class _BuyGpsScreenState extends State<BuyGpsScreen> {
   TruckModel truckModel = TruckModel();
   ScrollController scrollController = ScrollController();
   String? truckID;
-  var truckDataList = [];
+  // String? deviceID;
+  var truckDataLists = [];
   bool loading = false;
   late List jsonData;
   int i = 0;
@@ -49,6 +54,7 @@ class _BuyGpsScreenState extends State<BuyGpsScreen> {
   Position? _currentPosition;
   String? _currentAddress;
   bool locationPermissionis = false;
+  DeviceApiCalls getDeviceApi=DeviceApiCalls();
 
   BuyGPSHudController updateButtonController = Get.put(BuyGPSHudController());
 
@@ -88,7 +94,7 @@ class _BuyGpsScreenState extends State<BuyGpsScreen> {
       _groupValue = value!,
       updateButtonController.updateRadioHud(true),
       if(truckID == "") {
-        updateButtonController.updateButtonHud(false),
+        updateButtonController.updateButtonHud(false), //false
       } else {
         updateButtonController.updateButtonHud(true),
       }
@@ -233,7 +239,7 @@ class _BuyGpsScreenState extends State<BuyGpsScreen> {
                       groupValue: _groupValue,
                       loading: loading,
                       scrollController: scrollController,
-                      truckDataList: truckDataList
+                      truckDataList: truckDataLists
                   )
                 ],
               ),
@@ -245,10 +251,17 @@ class _BuyGpsScreenState extends State<BuyGpsScreen> {
   }
 
   getTruckData(int i) async {
-    var truckDataListForPagei = await getGPSTruckDataWithPageNo(i);
-    for (var truckData in truckDataListForPagei){
-      truckDataList.add(truckData);
+    // var truckDataListForPagei = await getGPSTruckDataWithPageNo(i);
+    var truckDataList = await mapUtil.getDevices();
+    for (var truckData in truckDataList){
+      print(truckData.attributes!.isSubscribed);
+      if(truckData.attributes!.isSubscribed == "no"){
+        continue;
+      }else{
+        truckDataLists.add(truckData);
+      }
     }
+    print(truckDataLists[i].truckno);
     setState(() {
       loading = false;
     });
