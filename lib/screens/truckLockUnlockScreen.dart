@@ -53,7 +53,8 @@ class _TruckLockUnlockState extends State<TruckLockUnlock> {
     super.initState();
     //lockState = parseResult();
     //lockState = true;
-    print("THE STATUS IS ${lockStorage.read('lockState')}");
+    print(
+        "-----------------------------------------THE STATUS IS ${lockStorage.read('lockState')}");
     //lockState = lockStorage.read('lockState');
     if (lockStorage.read('lockState') == null) {
       //lockState = parseResult();
@@ -241,7 +242,10 @@ class _TruckLockUnlockState extends State<TruckLockUnlock> {
                                 lockState = lockStorage.read('lockState');
                                 //lockState =
                                 //lockUnlockController.lockUnlockStatus.value;
-                                print("SETTINGHEEREEEEEEE");
+                                print(
+                                    "------------------------------Device Id:${widget.deviceId}");
+                                print(
+                                    "------------------------------value:${value[1]}");
                               });
                               showDialog(
                                   context: context,
@@ -258,16 +262,17 @@ class _TruckLockUnlockState extends State<TruckLockUnlock> {
                                         //routeHistory: widget.routeHistory,
                                         //truckId: widget.truckId,
                                         value: value[1],
-                                      )).then((value) {
-                                if (value) {
-                                  setState(() {
-                                    lockState = lockStorage.read('lockState');
-                                    //lockState = lockUnlockController
-                                    //.lockUnlockStatus.value;
-                                    print("SETHEEREEEEEEE");
-                                  });
-                                }
-                              });
+                                      ));
+                              //         )).then((value) {
+                              //   if (value) {
+                              //     setState(() {
+                              //       lockState = lockStorage.read('lockState');
+                              //       //lockState = lockUnlockController
+                              //       //.lockUnlockStatus.value;
+                              //       print("SETHEEREEEEEEE");
+                              //     });
+                              //   }
+                              // });
                             }),
                         ElevatedButton(
                           style: ButtonStyle(

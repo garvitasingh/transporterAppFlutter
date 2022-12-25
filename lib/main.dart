@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:liveasy/constants/color.dart';
 import 'package:liveasy/providerClass/providerData.dart';
@@ -119,6 +120,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return OverlaySupport(
       child: ChangeNotifierProvider<ProviderData>(
         create: (context) => ProviderData(),
@@ -130,6 +135,7 @@ class _MyAppState extends State<MyApp> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (FirebaseAuth.instance.currentUser == null) {
                     return GetMaterialApp(
+                      debugShowCheckedModeBanner: false,
                       builder: EasyLoading.init(),
                       theme: ThemeData(fontFamily: "montserrat"),
                       translations: LocalizationService(),
@@ -150,6 +156,7 @@ class _MyAppState extends State<MyApp> {
                     if (transporterId != null) {
                       print("not null user");
                       return GetMaterialApp(
+                        debugShowCheckedModeBanner: false,
                         builder: EasyLoading.init(),
                         theme: ThemeData(
                             fontFamily: "montserrat",
@@ -179,6 +186,7 @@ class _MyAppState extends State<MyApp> {
                     } else {
                       print("null user");
                       return GetMaterialApp(
+                        debugShowCheckedModeBanner: false,
                         builder: EasyLoading.init(),
                         theme: ThemeData(fontFamily: "montserrat"),
                         translations: LocalizationService(),

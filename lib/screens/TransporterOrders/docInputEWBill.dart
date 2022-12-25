@@ -6,8 +6,8 @@ import 'package:liveasy/constants/fontSize.dart';
 import 'package:liveasy/constants/spaces.dart';
 import 'package:liveasy/language/localization_service.dart';
 import 'package:liveasy/screens/TransporterOrders/documentUploadScreen.dart';
-import 'package:liveasy/screens/TransporterOrders/postDocumentApiCall.dart';
-import 'package:liveasy/screens/TransporterOrders/putDocumentApiCall.dart';
+//import 'package:liveasy/screens/TransporterOrders/postDocumentApiCall.dart';
+//import 'package:liveasy/screens/TransporterOrders/putDocumentApiCall.dart';
 import 'package:liveasy/screens/TransporterOrders/uploadedDocs.dart';
 //import 'package:liveasy/screens/TransporterOrders/uploadedDocuments.dart';
 //import 'package:liveasy/widgets/buttons/uploadBtn.dart';
@@ -20,9 +20,12 @@ import 'package:liveasy/functions/getImageFromGallery.dart';
 import 'package:liveasy/widgets/alertDialog/permissionDialog.dart';
 import 'dart:io' as Io;
 import 'package:permission_handler/permission_handler.dart';
-import 'getDocApiCallVerify.dart';
-import 'getDocName.dart';
-import 'getDocumentApiCall.dart';
+//import 'getDocApiCallVerify.dart';
+//import 'getDocName.dart';
+//import 'getDocumentApiCall.dart';
+
+import 'package:liveasy/functions/documentApi/getDocApiCallVerify.dart';
+import 'package:liveasy/functions/documentApi/getDocumentApiCall.dart';
 
 // ignore: must_be_immutable
 class docInputEWBill extends StatefulWidget {

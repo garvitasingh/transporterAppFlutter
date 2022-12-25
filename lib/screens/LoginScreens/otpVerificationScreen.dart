@@ -18,7 +18,6 @@ import 'package:provider/provider.dart';
 import 'package:liveasy/constants/fontWeights.dart';
 import 'package:liveasy/constants/fontSize.dart';
 import 'package:visibility_aware_state/visibility_aware_state.dart';
-
 import '../languageSelectionScreen.dart';
 import '../navigationScreen.dart';
 
@@ -58,7 +57,6 @@ class _NewOTPVerificationScreenState
   @override
   void onVisibilityChanged(WidgetVisibility visibility) {
     print('Visibility state : $visibility');
-
     super.onVisibilityChanged(visibility);
   }
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,13 +17,16 @@ import 'package:liveasy/widgets/HeadingTextWidgetBlue.dart';
 import 'package:liveasy/widgets/accountVerification/elevatedButtonWidget.dart';
 import 'package:liveasy/widgets/buttons/backButtonWidget.dart';
 import 'package:liveasy/widgets/elevatedButtonforAddNewDriver.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 class AddNewDriver extends StatefulWidget {
   String? selectedTruck;
   int? selectedDeviceId;
-  LoadDetailsScreenModel? loadDetailsScreenModel;
+  LoadDetailsScreenModel loadDetailsScreenModel;
   AddNewDriver(
-      {this.selectedTruck, this.selectedDeviceId, this.loadDetailsScreenModel});
+      {this.selectedTruck,
+      this.selectedDeviceId,
+      required this.loadDetailsScreenModel});
 
   @override
   State<AddNewDriver> createState() => _AddNewDriverState();
@@ -37,6 +42,7 @@ class _AddNewDriverState extends State<AddNewDriver> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _autovalidate = false;
   String? name, phoneno;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +84,8 @@ class _AddNewDriverState extends State<AddNewDriver> {
                                     // ),
                                   ]),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width / 3.5,
+                                //width: MediaQuery.of(context).size.width / 3.5,
+                                width: MediaQuery.of(context).size.width / 4.0,
                                 height: size_1,
                               ),
                               Padding(

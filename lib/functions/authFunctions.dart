@@ -42,17 +42,22 @@ class AuthService {
               mobileNum: value.user!.phoneNumber!.toString().substring(3, 13));
 
           Get.offAll(() => NavigationScreen());
-
         }
       });
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       // FocusScope.of(context).unfocus();
+      print("---------------------->${e.code}");
+      if (e.code == "session-expired") {
+        hudController.updateHud(false);
+        isOtpInvalidController.updateIsOtpInvalid(false);
+        print("---------------------------------->hi");
+      } else {
+        print('hud false due to catch in manual verification');
 
-      print('hud false due to catch in manual verification');
-
-      hudController.updateHud(false);
-      // Get.to(() => NewLoginScreen());
-      isOtpInvalidController.updateIsOtpInvalid(true);
+        hudController.updateHud(false);
+        // Get.to(() => NewLoginScreen());
+        isOtpInvalidController.updateIsOtpInvalid(true);
+      }
       // Get.snackbar('Invalid Otp', 'Please Enter the correct OTP',
       //     colorText: white, backgroundColor: black_87);
     }

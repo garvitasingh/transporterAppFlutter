@@ -18,7 +18,6 @@ import 'package:liveasy/widgets/unloadingPointImageIcon.dart';
 import 'package:provider/provider.dart';
 import 'package:jiffy/jiffy.dart';
 
-
 class PostLoadScreenOne extends StatefulWidget {
   const PostLoadScreenOne({Key? key}) : super(key: key);
 
@@ -69,8 +68,10 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
   bool i = false;
   bool setDate = false;
   var recentDate = fourthDay.MMMEd;
-  PostLoadVariablesController postLoadVariables = Get.put(PostLoadVariablesController());
-  TokenMMIController tokenMMIController = Get.put(TokenMMIController(), permanent: true);
+  PostLoadVariablesController postLoadVariables =
+      Get.put(PostLoadVariablesController());
+  TokenMMIController tokenMMIController =
+      Get.put(TokenMMIController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     ProviderData providerData = Provider.of<ProviderData>(context);
@@ -99,17 +100,15 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
     if (providerData.loadingPointCityPostLoad != "") {
       controller1 = TextEditingController(
           text:
-          ("${providerData.loadingPointCityPostLoad} (${providerData.loadingPointStatePostLoad})"));
-    }
-    else{
+              ("${providerData.loadingPointCityPostLoad} (${providerData.loadingPointStatePostLoad})"));
+    } else {
       controller1 = TextEditingController(text: "");
     }
     if (providerData.unloadingPointCityPostLoad != "") {
       controller2 = TextEditingController(
           text:
-          ("${providerData.unloadingPointCityPostLoad} (${providerData.unloadingPointStatePostLoad})"));
-    }
-    else{
+              ("${providerData.unloadingPointCityPostLoad} (${providerData.unloadingPointStatePostLoad})"));
+    } else {
       controller2 = TextEditingController(text: "");
     }
 
@@ -121,7 +120,8 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.fromLTRB(space_4, space_2, space_4, space_0),
+                padding:
+                    EdgeInsets.fromLTRB(space_4, space_2, space_4, space_0),
                 color: backgroundColor,
                 child: Column(
                   children: [
@@ -136,13 +136,14 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AddTruckSubtitleText(text: 'locationDetails'.tr
-                          // AppLocalizations.of(context)!.locationDetails
-                          ),
+                              // AppLocalizations.of(context)!.locationDetails
+                              ),
                           Padding(
                             padding: EdgeInsets.fromLTRB(
                                 size_2, size_5, size_10, size_2),
                             child: AddressInputMMIWidget(
-                              page:"postLoad",//use AddressInputMMIWidget for using mapMyIndia api
+                                page:
+                                    "postLoad", //use AddressInputMMIWidget for using mapMyIndia api
                                 hintText: "Loading point",
                                 icon: LoadingPointImageIcon(
                                   height: size_6,
@@ -150,7 +151,8 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
                                 ),
                                 controller: controller1,
                                 onTap: () {
-                                  providerData.updateLoadingPointPostLoad(place:"", city: "",state: "");
+                                  providerData.updateLoadingPointPostLoad(
+                                      place: "", city: "", state: "");
                                 }),
                           ),
                           SizedBox(height: size_5),
@@ -158,22 +160,23 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
                             padding: EdgeInsets.fromLTRB(
                                 size_2, size_5, size_10, size_2),
                             child: AddressInputMMIWidget(
-                              page:"postLoad",
-                                hintText: "Unloading point",
+                              page: "postLoad",
+                              hintText: "Unloading point",
                               icon: UnloadingPointImageIcon(
                                 height: size_6,
                                 width: size_6,
                               ),
                               controller: controller2,
                               onTap: () {
-                                providerData.updateUnloadingPointPostLoad(place:"", city: "",state: "");
+                                providerData.updateUnloadingPointPostLoad(
+                                    place: "", city: "", state: "");
                               },
                             ),
                           ),
                           SizedBox(height: space_3),
                           AddTruckSubtitleText(text: 'bookingDate'.tr
-                          // AppLocalizations.of(context)!.bookingDate
-                          ),
+                              // AppLocalizations.of(context)!.bookingDate
+                              ),
                           GridView.count(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
@@ -186,13 +189,12 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
                                 .map((e) => AddCalender(value: e, text: e))
                                 .toList(),
                           ),
-
                           SizedBox(
                             height: space_4,
                           ),
                           Center(
                             child: Container(
-                              width: space_26,
+                              width: space_30,
                               height: space_8,
                               child: ElevatedButton(
                                 onPressed: () {
@@ -200,10 +202,10 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
                                   _selectDate(context);
                                 },
                                 style:
-                                ButtonStyle(backgroundColor: calendarColor),
+                                    ButtonStyle(backgroundColor: calendarColor),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
                                       'selectDates'.tr,
@@ -219,11 +221,12 @@ class _PostLoadScreenOneState extends State<PostLoadScreenOne> {
                                     )
                                   ],
                                 ),
-
                               ),
                             ),
                           ),
-                          SizedBox(height: space_3,),
+                          SizedBox(
+                            height: space_3,
+                          ),
                         ],
                       ),
                     ),

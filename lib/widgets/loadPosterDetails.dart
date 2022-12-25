@@ -17,25 +17,25 @@ class LoadPosterDetails extends StatelessWidget {
   bool? loadPosterCompanyApproved;
   String? imageUrl;
 
-  LoadPosterDetails({
-    required this.loadPosterLocation,
-    required this.loadPosterName,
-    required this.loadPosterCompanyName,
-    this.loadPosterCompanyApproved,
-    this.imageUrl
-  });
+  LoadPosterDetails(
+      {required this.loadPosterLocation,
+      required this.loadPosterName,
+      required this.loadPosterCompanyName,
+      this.loadPosterCompanyApproved,
+      this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.height);
     String? image;
-    image =
-    (imageUrl == "no profile" ? "assets/images/defaultDriverImage.png" : imageUrl);
+    image = (imageUrl == "no profile"
+        ? "assets/images/defaultDriverImage.png"
+        : imageUrl);
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.225,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius_2-2),
+        borderRadius: BorderRadius.circular(radius_2 - 2),
         color: darkBlueColor,
       ),
       child: Row(
@@ -47,26 +47,25 @@ class LoadPosterDetails extends StatelessWidget {
             child: CircleAvatar(
               radius: radius_11,
               backgroundColor: white,
-              child:GestureDetector(
+              child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) {
-                          return FullScreenImage(
-                            imageUrl: imageUrl!,
-                          );
-                        }));
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return FullScreenImage(
+                        imageUrl: imageUrl!,
+                      );
+                    }));
                   },
-                  child:
-                  imageUrl == "no profile" ?
-                  Container(
-                    height: space_7,
-                    width: space_7,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(image!),
-                      ),
-                    ),
-                  ):Image.network(image!)),
+                  child: imageUrl == "no profile"
+                      ? Container(
+                          height: space_7,
+                          width: space_7,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(image!),
+                            ),
+                          ),
+                        )
+                      : Image.network(image!)),
             ),
           ),
           Column(
@@ -142,9 +141,7 @@ class LoadPosterDetails extends StatelessWidget {
               SizedBox(
                 height: space_1 + 1,
               ),
-              loadPosterCompanyApproved!
-                  ? VerifiedWidget()
-                  : UnverifiedWidget()
+              loadPosterCompanyApproved! ? VerifiedWidget() : UnverifiedWidget()
             ],
           ),
         ],

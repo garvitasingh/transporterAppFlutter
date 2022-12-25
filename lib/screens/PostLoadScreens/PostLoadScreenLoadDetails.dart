@@ -118,6 +118,14 @@ class _PostLoadScreenTwoState extends State<PostLoadScreenTwo> {
                             ),
                           ),
                         ),
+                        SizedBox(height: space_2),
+                        AddTruckSubtitleText(text: 'productType'.tr
+                            // "Product Type"
+                            ),
+                        SizedBox(height: space_2),
+                        PostLoadScreenTwoSearch(hintText: 'chooseproductType'.tr
+                            // "Choose Product Type"
+                            ),
                         SizedBox(height: space_3),
                         AddTruckSubtitleText(text: 'weights'.tr
                             // "Weight(in tons)"
@@ -145,14 +153,6 @@ class _PostLoadScreenTwoState extends State<PostLoadScreenTwo> {
                                       .toList(),
                                 ),
                               ),
-                        SizedBox(height: space_2),
-                        AddTruckSubtitleText(text: 'productType'.tr
-                            // "Product Type"
-                            ),
-                        SizedBox(height: space_2),
-                        PostLoadScreenTwoSearch(hintText: 'chooseproductType'.tr
-                            // "Choose Product Type"
-                            ),
                         SizedBox(height: space_3),
                         AddTruckSubtitleText(text: 'priceoptional'.tr
                             // "Price(Optional)"

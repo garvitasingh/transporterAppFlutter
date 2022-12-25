@@ -14,7 +14,8 @@ import 'package:liveasy/widgets/accountVerification/accountPageUtil.dart';
 import 'alertDialog/addDriverAlertDialog.dart';
 
 class HelpCardWidget extends StatefulWidget {
-  HelpCardWidget({Key? key, required this.title, required this.index}) : super(key: key);
+  HelpCardWidget({Key? key, required this.title, required this.index})
+      : super(key: key);
   final String title;
   final int index;
 
@@ -25,7 +26,8 @@ class HelpCardWidget extends StatefulWidget {
 class _HelpCardWidgetState extends State<HelpCardWidget> {
   // responsible for toggle
   bool _showData = false;
-  List<String> answers = ['To add truck : \n1. Click on my trucks. \n2. Click on add truck button. \n3. Fill the details about your truck. \n4. Confirm the details. \n5. Hurray! your truck is added.',
+  List<String> answers = [
+    'To add truck : \n1. Click on my trucks. \n2. Click on add truck button. \n3. Fill the details about your truck. \n4. Confirm the details. \n5. Hurray! your truck is added.',
     'To post load :\n1. Click on my load.\n2. Click on add load button.\n3. Fill the details about your load.\n4. Confirm the details.\n5. Hurray! your load is posted.',
     'To bid on the loads :\n1. Click on any load of your choice or you may also \tsearch load from search bar.\n2. Click on the bid button.\n3. Bid as per truck or per tonne.\n4. Click ok and your bid will be placed.',
     'To purchase GPS :\n1. On Home page click on Buy gps.\n1. Select your plan and the truck.\n2. Complete the payment procedure.\n3. Hurray! you purchased gps.',
@@ -36,97 +38,131 @@ class _HelpCardWidgetState extends State<HelpCardWidget> {
     'To find loads :\n1. Click on search.\n2. Enter the loading and unloading point.\n3. It will show loads available based on you search.\n4. You can also see load suggestions on home page .',
     '\n1. You will be able track your truck’s live location.\n2. Get other information such as fuel info, kms left to \treach unloading point.'
   ];
-  List<String> redirect= ['Click here to add truck', 'Click here to post load ', 'Click here to bid on loads', 'Click here to purchase GPS',
-    'Click here to see my orders', 'Click here to go to my account', 'Click here to add driver', 'Click here to change language ',
-    'Click here to search load', 'Click here to buy GPS'
+  List<String> redirect = [
+    'Click here to add truck',
+    'Click here to post load ',
+    'Click here to bid on loads',
+    'Click here to purchase GPS',
+    'Click here to see my orders',
+    'Click here to go to my account',
+    'Click here to add driver',
+    'Click here to change language ',
+    'Click here to search load',
+    'Click here to buy GPS'
   ];
 
-  var redirect_links= [
-    AddNewTruck(),
+  var redirect_links = [
+    AddNewTruck("redirectlinks"),
     PostLoadScreenOne(),
     SuggestedLoadScreen(),
     BuyGpsScreen(),
-  NavigationScreen(),
+    NavigationScreen(),
     AccountPageUtil(),
-    AddDriverAlertDialog(notifyParent: () { Get.to(MyDrivers()); },),
+    AddDriverAlertDialog(
+      notifyParent: () {
+        Get.to(MyDrivers());
+      },
+    ),
     LanguageSelectionScreen(),
     FindLoadScreen(),
     BuyGpsScreen(),
-
   ];
   @override
   Widget build(BuildContext context) {
-    NavigationIndexController navigationIndex = Get.put(NavigationIndexController(), permanent: true);
+    NavigationIndexController navigationIndex =
+        Get.put(NavigationIndexController(), permanent: true);
     return Container(
         child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
           SizedBox(height: 10.0),
           GestureDetector(
-              onTap: (){
+              onTap: () {
                 setState(() => _showData = !_showData);
               },
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(7)
-                  ),
+                      borderRadius: BorderRadius.circular(7)),
                   child: Padding(
                       padding: EdgeInsets.all(3.0),
-                      child: Column(
-                          children: [
-                            ListTile(
-                              title: Text(widget.title,
-                                style: TextStyle(fontFamily: 'montserrat', fontWeight: FontWeight.w600, fontSize: 14),
-                              ),
-                              trailing: !_showData?Icon(Icons.arrow_forward_ios,
-                                  color: Colors.black, size: 14): Icon(Icons.keyboard_arrow_down,
+                      child: Column(children: [
+                        ListTile(
+                          title: Text(
+                            widget.title,
+                            style: TextStyle(
+                                fontFamily: 'montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14),
+                          ),
+                          trailing: !_showData
+                              ? Icon(Icons.arrow_forward_ios,
+                                  color: Colors.black, size: 14)
+                              : Icon(Icons.keyboard_arrow_down,
                                   color: Colors.black, size: 25),
-                            ),
-                            _showData ? Container(
+                        ),
+                        _showData
+                            ? Container(
                                 alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.only(left: 20, bottom: 14, right: 20),
+                                padding: EdgeInsets.only(
+                                    left: 20, bottom: 14, right: 20),
                                 child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(answers[widget.index].tr,
-                                          style: TextStyle(fontFamily: 'montserrat', fontWeight: FontWeight.w600, fontSize: 12, color: Colors.grey ),
-                                          textAlign: TextAlign.left
-                                      ),
+                                          style: TextStyle(
+                                              fontFamily: 'montserrat',
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                              color: Colors.grey),
+                                          textAlign: TextAlign.left),
                                       GestureDetector(
                                           onTap: () {
                                             navigationIndex.updateIndex(2);
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>redirect_links[widget.index]));
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        redirect_links[
+                                                            widget.index]));
                                           },
                                           child: Container(
-                                            margin: EdgeInsets.only(top:10),
+                                              margin: EdgeInsets.only(top: 10),
                                               child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children :[
-                                                Text(redirect[widget.index].tr,
-                                                  style: TextStyle(fontFamily: 'montserrat', fontWeight: FontWeight.w600, fontSize: 12, color: Color(0xff09B778) ),
-                                                  textAlign: TextAlign.left
-                                              ),
-                                                Container(
-                                                    margin: EdgeInsets.only(top:2),
-                                                    child: Icon(Icons.arrow_forward_ios, color: Color(0xff09B778), size: 12 ))
-                                              ]
-                                          )
-                                          )
-                                      )
-                                    ]
-                                )
-                            ): SizedBox() // else blank
-
-                          ]
-                      )
-                  )
-              )
-          ),
-        ]
-    ));
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                        redirect[
+                                                                widget.index]
+                                                            .tr,
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'montserrat',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 12,
+                                                            color: Color(
+                                                                0xff09B778)),
+                                                        textAlign:
+                                                            TextAlign.left),
+                                                    Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: 2),
+                                                        child: Icon(
+                                                            Icons
+                                                                .arrow_forward_ios,
+                                                            color: Color(
+                                                                0xff09B778),
+                                                            size: 12))
+                                                  ])))
+                                    ]))
+                            : SizedBox() // else blank
+                      ])))),
+        ]));
   }
 }

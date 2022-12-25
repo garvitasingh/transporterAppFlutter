@@ -12,13 +12,8 @@ import 'package:liveasy/translations/l10n.dart';
 //This is effective way for maintenance of code for long term.
 //P.S Care should be taken that provider should only be used for updating variables and not processing their values.
 
-
 // enum class for language selection
-enum LanguageItem{
-  English,
-  Hindi
-}
-
+enum LanguageItem { English, Hindi }
 
 class ProviderData extends ChangeNotifier {
   bool bidButtonSendRequestState = false;
@@ -30,7 +25,7 @@ class ProviderData extends ChangeNotifier {
 
   bool editLoad = false;
   String? transporterLoadId;
-  void updateEditLoad(bool value, String transporterloadId){
+  void updateEditLoad(bool value, String transporterloadId) {
     editLoad = value;
     transporterLoadId = transporterloadId;
     notifyListeners();
@@ -80,6 +75,7 @@ class ProviderData extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   var selectedTruck;
   var selectedDriver;
 
@@ -148,8 +144,8 @@ class ProviderData extends ChangeNotifier {
   String controller = "";
   String controller1 = "";
   String controller2 = "";
-  bool perTruck = false;
-  bool perTon = false;
+  bool PER_TRUCK = false;
+  bool PER_TON = false;
   bool otpIsValid = true;
   String hintText = "enter price";
   Color borderColor = darkBlueColor;
@@ -267,11 +263,11 @@ class ProviderData extends ChangeNotifier {
   }
 
   void updateUnitValue() {
-    if (perTruck) {
+    if (PER_TRUCK) {
       // unitValue = "PER_TRUCK";
-      unitValue = "perTruck".tr;
-    } else if (perTon) {
-      unitValue = "perTon".tr;
+      unitValue = "PER_TRUCK".tr;
+    } else if (PER_TON) {
+      unitValue = "PER_TON".tr;
     } else if (unitValue == "") {
       return null;
     }
@@ -286,14 +282,14 @@ class ProviderData extends ChangeNotifier {
   //------------------------FUNCTIONS--------------------------------------------------------------------------
 
   void clearLoadingPointFindLoad() {
-    loadingPointPostLoad="";
+    loadingPointPostLoad = "";
     loadingPointCityFindLoad = "";
     loadingPointStateFindLoad = "";
     notifyListeners();
   }
 
   void clearUnloadingPointFindLoad() {
-    unloadingPointPostLoad="";
+    unloadingPointPostLoad = "";
     unloadingPointCityFindLoad = "";
     unloadingPointStateFindLoad = "";
     notifyListeners();
@@ -301,7 +297,7 @@ class ProviderData extends ChangeNotifier {
 
   void updateLoadingPointFindLoad(
       {required String place, required String city, required String state}) {
-    loadingPointPostLoad=place;
+    loadingPointPostLoad = place;
     loadingPointCityFindLoad = city;
     loadingPointStateFindLoad = state;
     notifyListeners();
@@ -309,7 +305,7 @@ class ProviderData extends ChangeNotifier {
 
   void updateUnloadingPointFindLoad(
       {required String place, required String city, required String state}) {
-    unloadingPointPostLoad=place;
+    unloadingPointPostLoad = place;
     unloadingPointCityFindLoad = city;
     unloadingPointStateFindLoad = state;
     notifyListeners();
@@ -327,14 +323,14 @@ class ProviderData extends ChangeNotifier {
 
   //////////////
   void clearLoadingPointPostLoad() {
-    loadingPointPostLoad="";
+    loadingPointPostLoad = "";
     loadingPointCityPostLoad = "";
     loadingPointStatePostLoad = "";
     notifyListeners();
   }
 
   void clearUnloadingPointPostLoad() {
-    loadingPointPostLoad="";
+    loadingPointPostLoad = "";
     unloadingPointCityPostLoad = "";
     unloadingPointStatePostLoad = "";
     notifyListeners();
@@ -342,7 +338,7 @@ class ProviderData extends ChangeNotifier {
 
   void updateLoadingPointPostLoad(
       {required String place, required String city, required String state}) {
-    loadingPointPostLoad=place;
+    loadingPointPostLoad = place;
     loadingPointCityPostLoad = city;
     loadingPointStatePostLoad = state;
 
@@ -351,7 +347,7 @@ class ProviderData extends ChangeNotifier {
 
   void updateUnloadingPointPostLoad(
       {required String place, required String city, required String state}) {
-    unloadingPointPostLoad=place;
+    unloadingPointPostLoad = place;
     unloadingPointCityPostLoad = city;
     unloadingPointStatePostLoad = state;
 
@@ -445,8 +441,8 @@ class ProviderData extends ChangeNotifier {
   }
 
   void resetUnitValue() {
-    perTon = false;
-    perTruck = false;
+    PER_TON = false;
+    PER_TRUCK = false;
   }
 
   void resetTruckFilters() {
@@ -501,7 +497,8 @@ class ProviderData extends ChangeNotifier {
   }
 
   void clearBookingDate() {
-    PostLoadVariablesController postLoadVariables = Get.find<PostLoadVariablesController>();
+    PostLoadVariablesController postLoadVariables =
+        Get.find<PostLoadVariablesController>();
     postLoadVariables.updateBookingDate("");
     notifyListeners();
   }
@@ -531,8 +528,8 @@ class ProviderData extends ChangeNotifier {
         passingWeightValue != 0 &&
         truckTypeValue != '' &&
         productType != "Choose Product Type" &&
-        ((perTruck != perTon) && price != 0 ||
-            (perTruck == perTon) && price == 0)) {
+        ((PER_TRUCK != PER_TON) && price != 0 ||
+            (PER_TRUCK == PER_TON) && price == 0)) {
       return true;
     } else {
       return false;
@@ -540,13 +537,15 @@ class ProviderData extends ChangeNotifier {
   }
 
   void updateBookingDate(value) {
-    PostLoadVariablesController postLoadVariables = Get.find<PostLoadVariablesController>();
+    PostLoadVariablesController postLoadVariables =
+        Get.find<PostLoadVariablesController>();
     postLoadVariables.updateBookingDate(value);
     notifyListeners();
   }
 
   bool postLoadScreenOneButton() {
-    PostLoadVariablesController postLoadVariables = Get.find<PostLoadVariablesController>();
+    PostLoadVariablesController postLoadVariables =
+        Get.find<PostLoadVariablesController>();
     if (loadingPointCityPostLoad != "" &&
         postLoadVariables.bookingDate.value != "" &&
         unloadingPointCityPostLoad != '') {
@@ -557,15 +556,15 @@ class ProviderData extends ChangeNotifier {
   }
 
   void PerTruckTrue(truck, ton) {
-    perTruck = truck;
-    perTon = ton;
+    PER_TRUCK = truck;
+    PER_TON = ton;
 
     notifyListeners();
   }
 
   void PerTonTrue(ton, truck) {
-    perTon = ton;
-    perTruck = truck;
+    PER_TON = ton;
+    PER_TRUCK = truck;
 
     notifyListeners();
   }
@@ -591,8 +590,8 @@ class ProviderData extends ChangeNotifier {
   }
 
   bool showDialogPrice() {
-    if (((perTruck != perTon) && price != 0 ||
-        (perTruck == perTon) && price == 0)) {
+    if (((PER_TRUCK != PER_TON) && price != 0 ||
+        (PER_TRUCK == PER_TON) && price == 0)) {
       return false;
     } else {
       return true;
@@ -643,11 +642,11 @@ class ProviderData extends ChangeNotifier {
 
   LanguageItem get languageItem => _languageItem;
 
-  void setLanguageItem(LanguageItem languageItems){
+  void setLanguageItem(LanguageItem languageItems) {
     _languageItem = languageItems;
     notifyListeners();
   }
-  
+
   File? LrPhotoFile;
   String? LrPhoto64;
   File? EwayBillPhotoFile;
@@ -696,6 +695,4 @@ class ProviderData extends ChangeNotifier {
     PodPhoto64 = newStr;
     notifyListeners();
   }
-
-
 }

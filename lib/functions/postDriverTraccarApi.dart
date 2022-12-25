@@ -16,7 +16,7 @@ postDriverTraccarApi(DriverName, DriverPhoneNo, TransporterId) async {
     Map data = {
       "name": DriverName,
       "attributes": {"phone": DriverPhoneNo},
-      "uniqueId": DriverName + DriverPhoneNo
+      "uniqueId": DriverPhoneNo
     };
     String body = json.encode(data);
     final String DriverTraccarApiUrl =
@@ -29,6 +29,10 @@ postDriverTraccarApi(DriverName, DriverPhoneNo, TransporterId) async {
             },
             body: body);
     print(response.body);
+    if (response.statusCode == 400) {
+      print("Mobile number already exists");
+      return "conflict";
+    }
     jsonData = json.decode(response.body);
 
     // if (jsonData["bookingId"] != null) {
@@ -45,7 +49,6 @@ postDriverTraccarApi(DriverName, DriverPhoneNo, TransporterId) async {
       return "unsuccessful";
     }
   } catch (e) {
-    print(e.toString());
     return e.toString();
   }
 }

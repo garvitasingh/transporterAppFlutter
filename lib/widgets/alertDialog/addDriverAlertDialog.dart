@@ -11,6 +11,7 @@ import 'package:liveasy/controller/transporterIdController.dart';
 import 'package:liveasy/functions/getDriverDetailsFromDriverApi.dart';
 import 'package:liveasy/functions/getTruckDetailsFromTruckApi.dart';
 import 'package:liveasy/functions/loadOnGoingData.dart';
+import 'package:liveasy/functions/postDriverTraccarApi.dart';
 import 'package:liveasy/models/responseModel.dart';
 import 'package:liveasy/providerClass/providerData.dart';
 import 'package:liveasy/widgets/buttons/addButton.dart';
@@ -175,23 +176,38 @@ class _AddDriverAlertDialogState extends State<AddDriverAlertDialog> {
                     TransporterIdController tIdController =
                         Get.find<TransporterIdController>();
                     String transporterId = '${tIdController.transporterId}';
-                    String? driverAdded = "";
-                    if (driverAdded == "") {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return LoadingAlertDialog();
-                        },
-                      );
-                    }
-                    ResponseModel? response =
-                        await driverApiCalls.postDriverApi(
-                            driverNameController.text,
-                            driverNumberController.text,
-                            transporterId);
-                    if (response != null) {
-                      if (response.statusCode == 201 && response.id != null) {
-                        // driver added successfully8
+                    // String? driverAdded = driverNameController.text;
+                    // if (driverAdded == "") {
+                    //   showDialog(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return LoadingAlertDialog();
+                    //     },
+                    //   );
+                    // }
+                    var uploadStatus = await postDriverTraccarApi(
+                        driverNameController.text,
+                        driverNumberController.text,
+                        transporterId);
+                    print(uploadStatus);
+                    // ResponseModel? response =
+                    //     await driverApiCalls.postDriverApi(
+                    //         driverNameController.text,
+                    //         driverNumberController.text,
+                    //         transporterId);
+                    if (uploadStatus != null) {
+                      // if (response.statusCode == 201 && response.id != null) {
+                      //   // driver added successfully8
+                      //   showDialog(
+                      //     context: context,
+                      //     builder: (BuildContext context) {
+                      //       return completedDialog(
+                      //         upperDialogText: "Driver successfully Added !",
+                      //         lowerDialogText: "",
+                      //       );
+                      //     },
+                      //   );
+                      if (uploadStatus == "successful") {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -219,7 +235,7 @@ class _AddDriverAlertDialogState extends State<AddDriverAlertDialog> {
 
                         // providerData.updateDropDownValue(
                         //     );
-                      } else if (response.statusCode == 409) {
+                      } else if (uploadStatus == "conflict") {
                         // most likely user trying to add same number again
                         showDialog(
                           context: context,

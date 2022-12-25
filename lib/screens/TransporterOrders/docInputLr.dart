@@ -5,8 +5,8 @@ import 'package:liveasy/constants/color.dart';
 import 'package:liveasy/constants/fontSize.dart';
 import 'package:liveasy/constants/spaces.dart';
 import 'package:liveasy/language/localization_service.dart';
-import 'package:liveasy/screens/TransporterOrders/getDocApiCallVerify.dart';
-import 'package:liveasy/screens/TransporterOrders/getDocumentApiCall.dart';
+//import 'package:liveasy/screens/TransporterOrders/getDocApiCallVerify.dart';
+//import 'package:liveasy/screens/TransporterOrders/getDocumentApiCall.dart';
 import 'package:liveasy/screens/TransporterOrders/uploadedDocs.dart';
 import '../../widgets/accountVerification/image_display.dart';
 import 'docUploadBtn2.dart';
@@ -15,7 +15,10 @@ import 'dart:io';
 import 'package:liveasy/widgets/alertDialog/permissionDialog.dart';
 import 'dart:io' as Io;
 import 'package:permission_handler/permission_handler.dart';
-import 'getDocName.dart';
+//import 'getDocName.dart';
+
+import 'package:liveasy/functions/documentApi/getDocApiCallVerify.dart';
+import 'package:liveasy/functions/documentApi/getDocumentApiCall.dart';
 
 class docInputLr extends StatefulWidget {
   var providerData;

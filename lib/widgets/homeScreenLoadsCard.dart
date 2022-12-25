@@ -49,7 +49,8 @@ class HomeScreenLoadsCard extends StatelessWidget {
                 {
                   showDialog(
                       context: context,
-                      builder: (context) => VerifyAccountNotifyAlertDialogWithCall())
+                      builder: (context) =>
+                          VerifyAccountNotifyAlertDialogWithCall())
                 }
             },
         child: Card(
@@ -61,7 +62,9 @@ class HomeScreenLoadsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'postedon'.tr +' : ' +'${loadDetailsScreenModel.loadDate}'.tr,
+                  'postedon'.tr +
+                      ' : ' +
+                      '${loadDetailsScreenModel.loadDate}'.tr,
                   style: TextStyle(
                       fontSize: size_6,
                       color: veryDarkGrey,
@@ -79,7 +82,8 @@ class HomeScreenLoadsCard extends StatelessWidget {
                         ),
                         Text(
                           loadDetailsScreenModel.loadingPointCity!.length > 20
-                              ? "${loadDetailsScreenModel.loadingPointCity!.substring(0, 19)}...".tr
+                              ? "${loadDetailsScreenModel.loadingPointCity!.substring(0, 19)}..."
+                                  .tr
                               : loadDetailsScreenModel.loadingPointCity!.tr,
                           style: TextStyle(
                               fontFamily: 'montserrat',
@@ -100,7 +104,7 @@ class HomeScreenLoadsCard extends StatelessWidget {
                         child: Center(
                           child: Text(
                             "${loadDetailsScreenModel.weight} $tonnes",
-                                // "${AppLocalizations.of(context)!.tonnes}",
+                            // "${AppLocalizations.of(context)!.tonnes}",
                             style: TextStyle(
                                 fontFamily: 'montserrat',
                                 color: bidBackground,
@@ -131,7 +135,8 @@ class HomeScreenLoadsCard extends StatelessWidget {
                         ),
                         Text(
                           loadDetailsScreenModel.unloadingPointCity!.length > 20
-                              ? "${loadDetailsScreenModel.unloadingPointCity!.substring(0, 19)}...".tr
+                              ? "${loadDetailsScreenModel.unloadingPointCity!.substring(0, 19)}..."
+                                  .tr
                               : loadDetailsScreenModel.unloadingPointCity!.tr,
                           style: TextStyle(
                               fontFamily: 'montserrat',

@@ -20,7 +20,7 @@ putDocumentApiCall(Map datanew2, String bookingId) async {
     print(body);
     final String documentApiUrl =
         FlutterConfig.get('documentApiUrl').toString();
-    final response = await http.put(Uri.parse("$documentApiUrl/$bookingId"),//using bookingId as the entityId for put request over the api.
+    final response = await http.put(Uri.parse("$documentApiUrl/$bookingId"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

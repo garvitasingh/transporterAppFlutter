@@ -114,7 +114,15 @@ class _ConfirmButtonSendRequestState extends State<ConfirmButtonSendRequest> {
           widget.loadDetailsScreenModel!.rate,
         );
       }
-
+      print("----------------------------->Book response:$bookResponse");
+      print(
+          "----------------------------->screen model:${widget.loadDetailsScreenModel}");
+      print("----------------------------->truck Id:${widget.truckId}");
+      print(
+          "----------------------------->device id:${widget.selectedDeviceId}");
+      print("----------------------------->name:${widget.selectedDriverName}");
+      print(
+          "----------------------------->phone:${widget.selectedDriverPhoneno}");
       if (bookResponse == "successful") {
         print(bookResponse);
         update_status();

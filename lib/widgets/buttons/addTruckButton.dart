@@ -25,7 +25,7 @@ class AddTruckButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all<Color>(truckGreen),
         ),
         onPressed: () {
-          Get.to(() => AddNewTruck());
+          Get.to(() => AddNewTruck("myTrucks"));
         },
         child: Text(
           'addTruck'.tr,

@@ -107,43 +107,42 @@ class _TruckLockDialogState extends State<TruckLockDialog> {
                             ),
                           ),
                           onPressed: () async {
+                            // var testTime = DateTime.now().toUtc();
+                            // var testTime1 = DateTime.now()
+                            //     .toUtc()
+                            //     .add(Duration(minutes: 1));
+                            // print(
+                            //     "_____________________________________________testTime:$testTime");
+                            // print(
+                            //     "_____________________________________________testTime1:$testTime1");
                             if (widget.value == "Unlock") {
-                              await postCommandsApi(
-                                      widget.gpsData,
-                                      widget.gpsDataHistory,
-                                      widget.gpsStoppageHistory,
-                                      //routeHistory,
-                                      widget.driverNum,
-                                      widget.TruckNo,
-                                      widget.driverName,
-                                      widget.truckId,
-                                      widget.deviceId,
-                                      "engineResume",
-                                      "sendingUnlock")
-                                  .then((uploadstatus) async {
-                                // setState(() {});
-                                if (uploadstatus == "Success") {
-                                  print("SENT UNLOCK TO DEVICE");
-                                  EasyLoading.instance
-                                    ..indicatorType =
-                                        EasyLoadingIndicatorType.ring
-                                    ..indicatorSize = 45.0
-                                    ..radius = 10.0
-                                    ..maskColor = darkBlueColor
-                                    ..userInteractions = false
-                                    ..backgroundColor = darkBlueColor
-                                    ..dismissOnTap = false;
-                                  EasyLoading.show(
-                                    status: "Loading...",
-                                  );
-                                  var timeNow = DateTime.now()
-                                      .subtract(Duration(hours: 5, minutes: 30))
-                                      .toIso8601String();
-                                  Timer(Duration(seconds: 15), () {
-                                    getCommandsResultApi(
-                                            widget.deviceId, timeNow)
-                                        .then((lockStatus) {
-                                      if (lockStatus == "unlock") {
+                              await getTruckCommandExist(widget.deviceId)
+                                  .then((boolValue) async {
+                                var temp = "";
+                                if (boolValue.length > 9) {
+                                  temp = boolValue.toString().substring(9);
+                                }
+                                if (boolValue != "Null" &&
+                                    boolValue != "Error" &&
+                                    temp != "") {
+                                  print(int.parse(temp));
+                                  await putCommands(
+                                          int.parse(temp), widget.value)
+                                      .then((value) async {
+                                    EasyLoading.instance
+                                      ..indicatorType =
+                                          EasyLoadingIndicatorType.ring
+                                      ..indicatorSize = 45.0
+                                      ..radius = 10.0
+                                      ..maskColor = darkBlueColor
+                                      ..userInteractions = false
+                                      ..backgroundColor = darkBlueColor
+                                      ..dismissOnTap = false;
+                                    EasyLoading.show(
+                                      status: "Loading...",
+                                    );
+                                    Timer(Duration(seconds: 10), () {
+                                      if (value == "Success") {
                                         EasyLoading.dismiss();
                                         print("THE COMMAND WENT PROPERLY");
                                         setState(() {
@@ -155,78 +154,40 @@ class _TruckLockDialogState extends State<TruckLockDialog> {
                                           lockUnlockController
                                               .updateLockUnlockStatus(true);
                                         });
-                                        // lockState = true;
-                                        // lockStorage.write(
-                                        //     'lockState', lockState);
-                                      } else if (lockStatus == "null") {
-                                        print("THE COMMAND WENT NULL");
                                         Get.back();
-                                        print("HERE");
-                                        // showDialog(
-                                        //     context: context,
-                                        //     builder: (dialogcontext) =>
-                                        //         NextUpdateAlertDialog());
-                                        Get.to(() => TryAgainLaterScreen(
-                                            deviceId: widget.deviceId,
-                                            gpsData: widget.gpsData,
-                                            // position: position,
-                                            TruckNo: widget.TruckNo,
-                                            driverName: widget.driverName,
-                                            driverNum: widget.driverNum,
-                                            gpsDataHistory:
-                                                widget.gpsDataHistory,
-                                            gpsStoppageHistory:
-                                                widget.gpsStoppageHistory,
-                                            //routeHistory: widget.routeHistory,
-                                            truckId: widget.truckId));
                                       }
                                     });
-                                    EasyLoading.dismiss();
-                                    Navigator.pop(context, true);
                                   });
-                                  //lockState = true;
-                                  //lockStorage.write('lockState', lockState);
-                                } else {
-                                  print("PROBLEM IN SENDING TO DEVICE");
                                 }
                               });
                             } else if (widget.value == "Lock") {
-                              // setState(() {});
-                              await postCommandsApi(
-                                      widget.gpsData,
-                                      widget.gpsDataHistory,
-                                      widget.gpsStoppageHistory,
-                                      //routeHistory,
-                                      widget.driverNum,
-                                      widget.TruckNo,
-                                      widget.driverName,
-                                      widget.truckId,
-                                      widget.deviceId,
-                                      "engineStop",
-                                      "sendingLock")
-                                  .then((uploadstatus) async {
-                                if (uploadstatus == "Success") {
-                                  print("SENT LOCK TO DEVICE");
-                                  EasyLoading.instance
-                                    ..indicatorType =
-                                        EasyLoadingIndicatorType.ring
-                                    ..indicatorSize = 45.0
-                                    ..radius = 10.0
-                                    ..maskColor = darkBlueColor
-                                    ..userInteractions = false
-                                    ..backgroundColor = darkBlueColor
-                                    ..dismissOnTap = false;
-                                  EasyLoading.show(
-                                    status: "Loading...",
-                                  );
-                                  var timeNow = DateTime.now()
-                                      .subtract(Duration(hours: 5, minutes: 30))
-                                      .toIso8601String();
-                                  Timer(Duration(seconds: 15), () {
-                                    getCommandsResultApi(
-                                            widget.deviceId, timeNow)
-                                        .then((lockStatus) {
-                                      if (lockStatus == "lock") {
+                              await getTruckCommandExist(widget.deviceId)
+                                  .then((boolValue) async {
+                                var temp = "";
+                                if (boolValue.length > 9) {
+                                  temp = boolValue.toString().substring(9);
+                                }
+                                if (boolValue != "Null" &&
+                                    boolValue != "Error" &&
+                                    temp != "") {
+                                  print(int.parse(temp));
+                                  await putCommands(
+                                          int.parse(temp), widget.value)
+                                      .then((value) async {
+                                    EasyLoading.instance
+                                      ..indicatorType =
+                                          EasyLoadingIndicatorType.ring
+                                      ..indicatorSize = 45.0
+                                      ..radius = 10.0
+                                      ..maskColor = darkBlueColor
+                                      ..userInteractions = false
+                                      ..backgroundColor = darkBlueColor
+                                      ..dismissOnTap = false;
+                                    EasyLoading.show(
+                                      status: "Loading...",
+                                    );
+                                    Timer(Duration(seconds: 10), () {
+                                      if (value == "Success") {
                                         EasyLoading.dismiss();
                                         print("THE COMMAND WENT PROPERLY");
                                         setState(() {
@@ -238,42 +199,229 @@ class _TruckLockDialogState extends State<TruckLockDialog> {
                                           lockUnlockController
                                               .updateLockUnlockStatus(false);
                                         });
-                                        // lockState = false;
-                                        // lockStorage.write(
-                                        //     'lockState', lockState);
-                                      } else if (lockStatus == "null") {
-                                        print("THE COMMAND WENT NULL");
                                         Get.back();
-                                        print("HERE");
-                                        // showDialog(
-                                        //     context: context,
-                                        //     builder: (dialogcontext) =>
-                                        //         NextUpdateAlertDialog());
-                                        Get.to(() => TryAgainLaterScreen(
-                                            deviceId: widget.deviceId,
-                                            gpsData: widget.gpsData,
-                                            // position: position,
-                                            TruckNo: widget.TruckNo,
-                                            driverName: widget.driverName,
-                                            driverNum: widget.driverNum,
-                                            gpsDataHistory:
-                                                widget.gpsDataHistory,
-                                            gpsStoppageHistory:
-                                                widget.gpsStoppageHistory,
-                                            //routeHistory: widget.routeHistory,
-                                            truckId: widget.truckId));
                                       }
                                     });
-                                    EasyLoading.dismiss();
-                                    Navigator.pop(context, true);
                                   });
-                                  //lockState = false;
-                                  //lockStorage.write('lockState', lockState);
                                 } else {
-                                  print("PROBLEM IN SENDING TO DEVICE");
+                                  await postCommandsApi(
+                                          widget.gpsData,
+                                          widget.gpsDataHistory,
+                                          widget.gpsStoppageHistory,
+                                          //routeHistory,
+                                          widget.driverNum,
+                                          widget.TruckNo,
+                                          widget.driverName,
+                                          widget.truckId,
+                                          widget.deviceId,
+                                          "engineResume",
+                                          "sendingUnlock")
+                                      .then((uploadstatus) async {
+                                    if (uploadstatus == "Success") {
+                                      print("SENT UNLOCK TO DEVICE");
+                                      EasyLoading.instance
+                                        ..indicatorType =
+                                            EasyLoadingIndicatorType.ring
+                                        ..indicatorSize = 45.0
+                                        ..radius = 10.0
+                                        ..maskColor = darkBlueColor
+                                        ..userInteractions = false
+                                        ..backgroundColor = darkBlueColor
+                                        ..dismissOnTap = false;
+                                      EasyLoading.show(
+                                        status: "Loading...",
+                                      );
+                                      Timer(Duration(seconds: 10), () {
+                                        if (uploadstatus == "Success") {
+                                          EasyLoading.dismiss();
+                                          print("THE COMMAND WENT PROPERLY");
+                                          setState(() {
+                                            lockState = false;
+                                            lockStorage.write(
+                                                'lockState', lockState);
+                                            lockUnlockController
+                                                .lockUnlockStatus.value = false;
+                                            lockUnlockController
+                                                .updateLockUnlockStatus(false);
+                                          });
+                                          Get.back();
+                                        }
+                                      });
+                                    }
+                                  });
                                 }
                               });
                             }
+
+                            //---------------------------------------------------------------------------
+                            // if (widget.value == "Unlock") {
+                            //   await postCommandsApi(
+                            //           widget.gpsData,
+                            //           widget.gpsDataHistory,
+                            //           widget.gpsStoppageHistory,
+                            //           //routeHistory,
+                            //           widget.driverNum,
+                            //           widget.TruckNo,
+                            //           widget.driverName,
+                            //           widget.truckId,
+                            //           widget.deviceId,
+                            //           "engineResume",
+                            //           "sendingUnlock")
+                            //       .then((uploadstatus) async {
+                            //     // setState(() {});
+                            //     if (uploadstatus == "Success") {
+                            //       print("SENT UNLOCK TO DEVICE");
+                            //       EasyLoading.instance
+                            //         ..indicatorType =
+                            //             EasyLoadingIndicatorType.ring
+                            //         ..indicatorSize = 45.0
+                            //         ..radius = 10.0
+                            //         ..maskColor = darkBlueColor
+                            //         ..userInteractions = false
+                            //         ..backgroundColor = darkBlueColor
+                            //         ..dismissOnTap = false;
+                            //       EasyLoading.show(
+                            //         status: "Loading...",
+                            //       );
+                            //       var timeNow =
+                            //           DateTime.now().toUtc().toIso8601String();
+                            //       Future.delayed(Duration(minutes: 2), () {
+                            //         Timer(Duration(seconds: 50), () {
+                            //           getCommandsResultApi(
+                            //                   widget.deviceId, timeNow)
+                            //               .then((lockStatus) {
+                            //             if (lockStatus == "unlock") {
+                            //               EasyLoading.dismiss();
+                            //               print("THE COMMAND WENT PROPERLY");
+                            //               setState(() {
+                            //                 lockState = true;
+                            //                 lockStorage.write(
+                            //                     'lockState', lockState);
+                            //                 lockUnlockController
+                            //                     .lockUnlockStatus.value = true;
+                            //                 lockUnlockController
+                            //                     .updateLockUnlockStatus(true);
+                            //               });
+                            //               // lockState = true;
+                            //               // lockStorage.write(
+                            //               //     'lockState', lockState);
+                            //             } else if (lockStatus == "null") {
+                            //               print("THE COMMAND WENT NULL");
+                            //               Get.back();
+                            //               print("HERE");
+                            //               // showDialog(
+                            //               //     context: context,
+                            //               //     builder: (dialogcontext) =>
+                            //               //         NextUpdateAlertDialog());
+                            //               Get.to(() => TryAgainLaterScreen(
+                            //                   deviceId: widget.deviceId,
+                            //                   gpsData: widget.gpsData,
+                            //                   // position: position,
+                            //                   TruckNo: widget.TruckNo,
+                            //                   driverName: widget.driverName,
+                            //                   driverNum: widget.driverNum,
+                            //                   gpsDataHistory:
+                            //                       widget.gpsDataHistory,
+                            //                   gpsStoppageHistory:
+                            //                       widget.gpsStoppageHistory,
+                            //                   //routeHistory: widget.routeHistory,
+                            //                   truckId: widget.truckId));
+                            //             }
+                            //           });
+                            //           EasyLoading.dismiss();
+                            //           Navigator.pop(context, true);
+                            //         });
+                            //       });
+                            //       //lockState = true;
+                            //       //lockStorage.write('lockState', lockState);
+                            //     } else {
+                            //       print("PROBLEM IN SENDING TO DEVICE");
+                            //     }
+                            //   });
+                            // } else if (widget.value == "Lock") {
+                            //   // setState(() {});
+                            //   await postCommandsApi(
+                            //           widget.gpsData,
+                            //           widget.gpsDataHistory,
+                            //           widget.gpsStoppageHistory,
+                            //           //routeHistory,
+                            //           widget.driverNum,
+                            //           widget.TruckNo,
+                            //           widget.driverName,
+                            //           widget.truckId,
+                            //           widget.deviceId,
+                            //           "engineStop",
+                            //           "sendingLock")
+                            //       .then((uploadstatus) async {
+                            //     if (uploadstatus == "Success") {
+                            //       print("SENT LOCK TO DEVICE");
+                            //       EasyLoading.instance
+                            //         ..indicatorType =
+                            //             EasyLoadingIndicatorType.ring
+                            //         ..indicatorSize = 45.0
+                            //         ..radius = 10.0
+                            //         ..maskColor = darkBlueColor
+                            //         ..userInteractions = false
+                            //         ..backgroundColor = darkBlueColor
+                            //         ..dismissOnTap = false;
+                            //       EasyLoading.show(
+                            //         status: "Loading...",
+                            //       );
+                            //       var timeNow = DateTime.now()
+                            //           .subtract(Duration(hours: 5, minutes: 30))
+                            //           .toIso8601String();
+                            //       Timer(Duration(seconds: 15), () {
+                            //         getCommandsResultApi(
+                            //                 widget.deviceId, timeNow)
+                            //             .then((lockStatus) {
+                            //           if (lockStatus == "lock") {
+                            //             EasyLoading.dismiss();
+                            //             print("THE COMMAND WENT PROPERLY");
+                            //             setState(() {
+                            //               lockState = false;
+                            //               lockStorage.write(
+                            //                   'lockState', lockState);
+                            //               lockUnlockController
+                            //                   .lockUnlockStatus.value = false;
+                            //               lockUnlockController
+                            //                   .updateLockUnlockStatus(false);
+                            //             });
+                            //             // lockState = false;
+                            //             // lockStorage.write(
+                            //             //     'lockState', lockState);
+                            //           } else if (lockStatus == "null") {
+                            //             print("THE COMMAND WENT NULL");
+                            //             Get.back();
+                            //             print("HERE");
+                            //             // showDialog(
+                            //             //     context: context,
+                            //             //     builder: (dialogcontext) =>
+                            //             //         NextUpdateAlertDialog());
+                            //             Get.to(() => TryAgainLaterScreen(
+                            //                 deviceId: widget.deviceId,
+                            //                 gpsData: widget.gpsData,
+                            //                 // position: position,
+                            //                 TruckNo: widget.TruckNo,
+                            //                 driverName: widget.driverName,
+                            //                 driverNum: widget.driverNum,
+                            //                 gpsDataHistory:
+                            //                     widget.gpsDataHistory,
+                            //                 gpsStoppageHistory:
+                            //                     widget.gpsStoppageHistory,
+                            //                 //routeHistory: widget.routeHistory,
+                            //                 truckId: widget.truckId));
+                            //           }
+                            //         });
+                            //         EasyLoading.dismiss();
+                            //         Navigator.pop(context, true);
+                            //       });
+                            //       //lockState = false;
+                            //       //lockStorage.write('lockState', lockState);
+                            //     } else {
+                            //       print("PROBLEM IN SENDING TO DEVICE");
+                            //     }
+                            //   });
+                            // }
                             // Navigator.pop(context, true);
                           }),
                       ElevatedButton(

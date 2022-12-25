@@ -14,7 +14,7 @@ class HeadingTextWidgetBlue extends StatelessWidget {
       child: Text(
         headingText,
         style: TextStyle(
-            fontSize: size_10,
+            fontSize: size_9,
             fontWeight: FontWeight.bold,
             color: darkBlueColor,
             letterSpacing: -0.408),

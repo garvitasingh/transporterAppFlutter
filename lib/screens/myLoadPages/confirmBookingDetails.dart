@@ -10,6 +10,7 @@ import 'package:liveasy/controller/transporterIdController.dart';
 import 'package:liveasy/models/biddingModel.dart';
 import 'package:liveasy/models/loadDetailsScreenModel.dart';
 import 'package:liveasy/screens/myLoadPages/addNewDriver.dart';
+import 'package:liveasy/screens/myLoadPages/selectDriverScreen.dart';
 import 'package:liveasy/widgets/HeadingTextWidgetBlue.dart';
 import 'package:liveasy/widgets/buttons/confirmButtonSendRequest.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
@@ -27,7 +28,7 @@ class ConfirmBookingDetails extends StatefulWidget {
   String? selectedTruck;
   int? selectedDeviceId;
   String? driverName, mobileNo;
-  LoadDetailsScreenModel? loadDetailsScreenModel;
+  LoadDetailsScreenModel loadDetailsScreenModel;
   BiddingModel? biddingModel;
   bool? directBooking;
   String? postLoadId;
@@ -38,7 +39,7 @@ class ConfirmBookingDetails extends StatefulWidget {
       this.driverName,
       this.mobileNo,
       this.postLoadId,
-      this.loadDetailsScreenModel,
+      required this.loadDetailsScreenModel,
       this.biddingModel,
       required this.directBooking});
 
@@ -82,6 +83,7 @@ class _ConfirmBookingDetailsState extends State<ConfirmBookingDetails> {
                       return SelectTruckScreen(
                           driverName: widget.driverName,
                           driverPhoneNo: widget.mobileNo,
+                          loadDetailsScreenModel: widget.loadDetailsScreenModel,
                           directBooking: true);
                     })));
                   },
@@ -167,10 +169,11 @@ class _ConfirmBookingDetailsState extends State<ConfirmBookingDetails> {
                   onTap: () {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: ((context) {
-                      return AddNewDriver(
+                      return SelectDriverScreen(
                         selectedDeviceId: widget.selectedDeviceId,
                         selectedTruck: widget.selectedTruck,
                         loadDetailsScreenModel: widget.loadDetailsScreenModel,
+                        directBooking: true,
                       );
                     })));
                   },

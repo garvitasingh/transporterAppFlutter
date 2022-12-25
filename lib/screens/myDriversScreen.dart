@@ -62,9 +62,10 @@ class _MyDriversState extends State<MyDrivers> {
   }
 
   Future<bool> _willPopCallback() async {
-   Get.offAll(NavigationScreen());
+    Get.offAll(NavigationScreen());
     return Future.value(true);
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -84,7 +85,7 @@ class _MyDriversState extends State<MyDrivers> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        onTap:  _willPopCallback,
+                        onTap: _willPopCallback,
                         child: Icon(Icons.arrow_back_ios_rounded),
                       ),
                       SizedBox(
@@ -92,7 +93,7 @@ class _MyDriversState extends State<MyDrivers> {
                       ),
                       HeadingTextWidget('mydriver'.tr
                           // 'My Drivers'
-                      ),
+                          ),
                       // HelpButtonWidget(),
                     ],
                   ),
@@ -118,31 +119,32 @@ class _MyDriversState extends State<MyDrivers> {
                     loading!
                         ? DriverLoadingWidgets()
                         : driverList.isEmpty
-                        ? Container(
-                            alignment: Alignment.center,
-                            // margin: EdgeInsets.only(top: 153),
-                            child:  Text(
-                              'noDriver'.tr,
+                            ? Container(
+                                alignment: Alignment.center,
+                                // margin: EdgeInsets.only(top: 153),
+                                child: Text(
+                                  'noDriver'.tr,
                                   // 'Looks like you have not added any Drivers!',
-                                  style: TextStyle(fontSize: size_8, color: grey),
+                                  style:
+                                      TextStyle(fontSize: size_8, color: grey),
                                   textAlign: TextAlign.center,
                                 ),
-                          )
-                        : ListView.builder(
-                            padding: EdgeInsets.only(bottom: space_15),
-                            controller: scrollController,
-                            itemCount: driverList.length,
-                            itemBuilder: (context, index) {
-                              return MyDriverCard(
-                                driverData: driverList[index],
-                              );
-                            }),
+                              )
+                            : ListView.builder(
+                                padding: EdgeInsets.only(bottom: space_15),
+                                controller: scrollController,
+                                itemCount: driverList.length,
+                                itemBuilder: (context, index) {
+                                  return MyDriverCard(
+                                    driverData: driverList[index],
+                                  );
+                                }),
                     Padding(
                       padding: EdgeInsets.only(bottom: space_2),
                       child: Container(
-                            padding: EdgeInsets.only(bottom: space_2),
-                            margin: EdgeInsets.only(bottom: space_2),
-                            child: AddDriverButton()),
+                          padding: EdgeInsets.only(bottom: space_2),
+                          margin: EdgeInsets.only(bottom: space_2),
+                          child: AddDriverButton()),
                     ),
                   ],
                 ),
@@ -157,9 +159,14 @@ class _MyDriversState extends State<MyDrivers> {
   } //build
 
   getDriverData() async {
-    driverList = await driverApiCalls.getDriversByTransporterId();
+    // driverList = await driverApiCalls.getDriversByTransporterId();
+    // setState(() {
+    //   loading = false;
+    // });
+    driverList = await driverApiCalls.getDriverData();
     setState(() {
       loading = false;
+      print(driverList);
     });
   } //getDriverData
 

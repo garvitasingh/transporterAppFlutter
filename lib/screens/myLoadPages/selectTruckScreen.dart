@@ -8,21 +8,23 @@ import 'package:liveasy/constants/spaces.dart';
 import 'package:liveasy/functions/mapUtils/getLoactionUsingImei.dart';
 import 'package:liveasy/models/biddingModel.dart';
 import 'package:liveasy/models/loadDetailsScreenModel.dart';
+import 'package:liveasy/screens/TruckScreens/AddNewTruck/truckNumberRegistration.dart';
 import 'package:liveasy/screens/myLoadPages/confirmBookingDetails.dart';
+import 'package:liveasy/widgets/buttons/addTruckButton.dart';
 import 'package:liveasy/widgets/buttons/backButtonWidget.dart';
 import 'package:liveasy/widgets/headingTextWidget.dart';
 
 class SelectTruckScreen extends StatefulWidget {
   // List? truckModelList;
   // List? driverModelList;
-  LoadDetailsScreenModel? loadDetailsScreenModel;
+  LoadDetailsScreenModel loadDetailsScreenModel;
   BiddingModel? biddingModel;
   bool? directBooking;
   String? postLoadId;
   String? driverName, driverPhoneNo;
   SelectTruckScreen(
       {this.postLoadId,
-      this.loadDetailsScreenModel,
+      required this.loadDetailsScreenModel,
       this.biddingModel,
       this.driverName,
       this.driverPhoneNo,
@@ -33,6 +35,7 @@ class SelectTruckScreen extends StatefulWidget {
 }
 
 class _SelectTruckScreenState extends State<SelectTruckScreen> {
+  bool isSelected = false;
   String searchedTruck = "";
   late String selectedTruck;
   late int selectedDeviceId;
@@ -102,6 +105,38 @@ class _SelectTruckScreenState extends State<SelectTruckScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: statusBarColor,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: SizedBox(
+        width: 130,
+        height: space_9 + 1,
+        child: FloatingActionButton(
+          child: Text(
+            "Confirm",
+            style: TextStyle(
+                color: white,
+                fontWeight: mediumBoldWeight,
+                fontSize: size_8 + 2),
+          ),
+          onPressed: isSelected
+              ? () => {
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: ((context) {
+                      return ConfirmBookingDetails(
+                        selectedTruck: selectedTruck,
+                        selectedDeviceId: selectedDeviceId,
+                        driverName: widget.driverName,
+                        mobileNo: widget.driverPhoneNo,
+                        loadDetailsScreenModel: widget.loadDetailsScreenModel,
+                        directBooking: true,
+                      );
+                    }))),
+                  }
+              : () => {},
+          backgroundColor: darkBlueColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius_4)),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -121,6 +156,30 @@ class _SelectTruckScreenState extends State<SelectTruckScreen> {
                         width: space_3,
                       ),
                       HeadingTextWidget('selectTruck'.tr),
+                      SizedBox(
+                        width: space_6,
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddNewTruck("selectTruck"),
+                            ),
+                          );
+                        },
+                        icon: Icon(
+                          Icons.add,
+                          color: const Color(0xFF152968),
+                        ),
+                        label: Text(
+                          "Add Truck",
+                          style: TextStyle(
+                              color: const Color(0xFF152968),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20),
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -175,9 +234,11 @@ class _SelectTruckScreenState extends State<SelectTruckScreen> {
                             child: ListView.builder(
                               itemCount: searchedTruckList.length,
                               itemBuilder: ((context, index) {
-                                return GestureDetector(
+                                return InkWell(
+                                  splashColor: Colors.white,
                                   onTap: () {
                                     setState(() {
+                                      isSelected = true;
                                       selectedIndex = index;
                                       selectedTruck = searchedTruckList[index];
                                       selectedDeviceId =
@@ -266,9 +327,11 @@ class _SelectTruckScreenState extends State<SelectTruckScreen> {
                             child: ListView.builder(
                               itemCount: truckList.length,
                               itemBuilder: ((context, index) {
-                                return GestureDetector(
+                                return InkWell(
+                                  splashColor: Colors.white,
                                   onTap: () {
                                     setState(() {
+                                      isSelected = true;
                                       selectedIndex = index;
                                       selectedTruck = truckList[index];
                                       selectedDeviceId = deviceIdList[index];
@@ -285,7 +348,7 @@ class _SelectTruckScreenState extends State<SelectTruckScreen> {
                                                 right: space_5,
                                                 bottom: space_4,
                                                 top: space_3),
-                                            child: !(index == selectedIndex)
+                                            child: (index != selectedIndex)
                                                 ? Container(
                                                     // color: grey,
                                                     height: 15,
@@ -351,53 +414,6 @@ class _SelectTruckScreenState extends State<SelectTruckScreen> {
                           ),
                         ),
                 ]),
-                // ),
-                Positioned(
-                  bottom: 50,
-                  right: 0,
-                  // alignment: Alignment.bottomCenter,
-                  child: GestureDetector(
-                    onTap: () {
-                      print(selectedTruck);
-                      Navigator.of(context)
-                          .pushReplacement(MaterialPageRoute(builder: ((context) {
-                        return ConfirmBookingDetails(
-                          selectedTruck: selectedTruck,
-                          selectedDeviceId: selectedDeviceId,
-                          driverName: widget.driverName,
-                          mobileNo: widget.driverPhoneNo,
-                          loadDetailsScreenModel: widget.loadDetailsScreenModel,
-                          directBooking: true,
-                        );
-                      })));
-                    },
-                    // onTap: widget.truckId != null
-                    //     ? () {
-                    //         getBookingData();
-                    //       }
-                    //     : null,
-                    child: Container(
-                      // color: grey,
-                      margin: EdgeInsets.only(right: space_3),
-                      height: space_9 + 1,
-                      width: 130,
-                      decoration: BoxDecoration(
-                          // color: widget.truckId != null ?
-                          // darkBlueColor : unselectedGrey,
-                          color: darkBlueColor,
-                          borderRadius: BorderRadius.circular(radius_4)),
-                      child: Center(
-                        child: Text(
-                          "Confirm",
-                          style: TextStyle(
-                              color: white,
-                              fontWeight: mediumBoldWeight,
-                              fontSize: size_8 + 2),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

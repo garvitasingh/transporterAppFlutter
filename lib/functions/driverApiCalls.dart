@@ -53,6 +53,31 @@ class DriverApiCalls {
     return driverList;
   }
 
+  Future<List<DriverModel>> getDriverData() async {
+    driverList = [];
+    String? traccarUser = transporterIdController.mobileNum.value;
+    String traccarPass = FlutterConfig.get("traccarPass");
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$traccarUser:$traccarPass'));
+    http.Response response = await http.get(
+      Uri.parse("$driverApiUrl/api/drivers"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'authorization': basicAuth,
+      },
+    );
+    jsonData = await jsonDecode(response.body);
+    for (var json in jsonData) {
+      DriverModel driverModel = DriverModel();
+      driverModel.id = json["id"];
+      driverModel.driverName = json["name"];
+      driverModel.phoneNum = json["uniqueId"];
+      print("---------------------------->$json");
+      driverList.add(driverModel);
+    }
+    return driverList;
+  }
+
   //----------------------------------------------------------------------------
 
   //This function gets the details of a single driver by using the  driverId

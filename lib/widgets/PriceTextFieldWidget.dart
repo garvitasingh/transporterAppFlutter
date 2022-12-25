@@ -43,11 +43,11 @@ class PriceTextFieldWidget extends StatelessWidget {
           controller: controller,
           onEditingComplete: () {
             FocusScope.of(context).unfocus();
-            if (providerData.perTon != providerData.perTruck) {
+            if (providerData.PER_TON != providerData.PER_TRUCK) {
               if (providerData.price == 0) {
                 providerData.updateHintText('enterprice'.tr
                     // "enter price"
-                );
+                    );
                 providerData.updateBorderColor(red);
               } else {
                 providerData.updateHintText("0");
@@ -59,12 +59,13 @@ class PriceTextFieldWidget extends StatelessWidget {
             if (value.length < 1) {
               providerData.updateResetActive(false);
               providerData.updatePrice(0);
-              if (providerData.price == 0 && (providerData.unitValue != providerData.unitValue1)) {
+              if (providerData.price == 0 &&
+                  (providerData.unitValue != providerData.unitValue1)) {
                 providerData.updateHintText('enterprice'.tr
                     // "enter price"
-                );
+                    );
                 providerData.updateBorderColor(red);
-              } else if(providerData.unitValue == providerData.unitValue1) {
+              } else if (providerData.unitValue == providerData.unitValue1) {
                 providerData.updateHintText("0");
                 providerData.updateBorderColor(darkBlueColor);
               }

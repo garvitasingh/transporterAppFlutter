@@ -14,8 +14,11 @@ import 'dart:io';
 import 'package:liveasy/widgets/alertDialog/permissionDialog.dart';
 import 'dart:io' as Io;
 import 'package:permission_handler/permission_handler.dart';
-import 'getDocApiCallVerify.dart';
-import 'getDocumentApiCall.dart';
+//import 'getDocApiCallVerify.dart';
+//import 'getDocumentApiCall.dart';
+
+import 'package:liveasy/functions/documentApi/getDocApiCallVerify.dart';
+import 'package:liveasy/functions/documentApi/getDocumentApiCall.dart';
 
 // ignore: must_be_immutable
 class docInputPod extends StatefulWidget {

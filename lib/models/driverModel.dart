@@ -4,6 +4,7 @@ class DriverModel {
   String? phoneNum;
   String? driverName;
   String? truckId;
+  int? id;
 
   DriverModel({
     this.driverId,
@@ -11,5 +12,6 @@ class DriverModel {
     this.phoneNum,
     this.driverName,
     this.truckId,
+    this.id,
   });
 }

@@ -21,7 +21,7 @@ class UnitValueWidget extends StatelessWidget {
               child: OutlinedButton(
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all<double>(2),
-                backgroundColor: providerData.perTruck
+                backgroundColor: providerData.PER_TRUCK
                     ? MaterialStateProperty.all(darkBlueColor)
                     : MaterialStateProperty.all(whiteBackgroundColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -29,7 +29,7 @@ class UnitValueWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(7),
                 ))),
             onPressed: () {
-              if (!providerData.perTruck) {
+              if (!providerData.PER_TRUCK) {
                 providerData.PerTruckTrue(true, false);
                 providerData.updateResetActive(true);
                 if (providerData.price == 0) {
@@ -50,7 +50,7 @@ class UnitValueWidget extends StatelessWidget {
               style: TextStyle(
                   fontSize: size_7,
                   fontWeight: regularWeight,
-                  color: providerData.perTruck ? white : black),
+                  color: providerData.PER_TRUCK ? white : black),
             ),
           )),
           SizedBox(width: space_8),
@@ -58,7 +58,7 @@ class UnitValueWidget extends StatelessWidget {
               child: OutlinedButton(
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all<double>(2),
-                backgroundColor: providerData.perTon
+                backgroundColor: providerData.PER_TON
                     ? MaterialStateProperty.all(darkBlueColor)
                     : MaterialStateProperty.all(whiteBackgroundColor),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -66,7 +66,7 @@ class UnitValueWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(7),
                 ))),
             onPressed: () {
-              if (!providerData.perTon) {
+              if (!providerData.PER_TON) {
                 providerData.PerTonTrue(true, false);
                 providerData.updateResetActive(true);
                 if (providerData.price == 0) {
@@ -87,7 +87,7 @@ class UnitValueWidget extends StatelessWidget {
               style: TextStyle(
                   fontSize: size_7,
                   fontWeight: regularWeight,
-                  color: providerData.perTon ? white : black),
+                  color: providerData.PER_TON ? white : black),
             ),
           )),
         ],

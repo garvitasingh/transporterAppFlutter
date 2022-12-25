@@ -19,14 +19,56 @@ class AddressInputMMIWidget extends StatelessWidget {
 
   AddressInputMMIWidget(
       {required this.page,
-        required this.hintText,
+      required this.hintText,
       required this.icon,
       required this.controller,
       required this.onTap});
 
   @override
   Widget build(BuildContext context) {
+    late String value;
     ProviderData providerData = Provider.of<ProviderData>(context);
+    // return Container(
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(space_6),
+    //     border: Border.all(color: darkBlueColor, width: borderWidth_8),
+    //     color: widgetBackGroundColor,
+    //   ),
+    //   padding: EdgeInsets.symmetric(horizontal: space_3),
+    //   child: TextFormField(
+    //     readOnly: true,
+    //     onTap: () {
+    //
+    //       providerData.updateResetActive(true);
+    //
+    //       FocusScope.of(context).requestFocus(FocusNode());
+    //       // MapBox api is used for autosuggestion but city data is too less for use in india
+    //       // Navigator.push(
+    //       //   context,
+    //       //   MaterialPageRoute(
+    //       //     builder: (context) => MapBoxAutoCompleteWidget(
+    //       //       apiKey: "pk.eyJ1IjoiZ2Fydml0YTkzNiIsImEiOiJjbDg0ZWNwZXkwMmJmM3ZwNWFzbnJpcXNlIn0.8WpvYsCUf889t6-nGoc4cA",
+    //       //       hint: 'enterCityName'.tr,
+    //       //       onSelect: (place) {
+    //       //         controller.text = place.placeName!;
+    //       //       },
+    //       //       country: "IND",
+    //       //       limit: 10,
+    //       //       // location: Location(78.96,20.59),
+    //       //       closeOnSelect: true,
+    //       //     ),
+    //       //   ),
+    //       // );
+    //       Get.to(() => CityNameInputScreen(page,hintText));   // for MapMyIndia api
+    //     },
+    //     controller: controller,
+    //     decoration: InputDecoration(
+    //       hintText: hintText,
+    //       icon: icon,
+    //     suffixIcon: GestureDetector(onTap: onTap, child: CancelIconWidget()),
+    //     ),
+    //   ),
+    // );
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(space_6),
@@ -36,35 +78,17 @@ class AddressInputMMIWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: space_3),
       child: TextFormField(
         readOnly: true,
-        onTap: () {
-
+        onTap: () async {
           providerData.updateResetActive(true);
-
           FocusScope.of(context).requestFocus(FocusNode());
-          // MapBox api is used for autosuggestion but city data is too less for use in india
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => MapBoxAutoCompleteWidget(
-          //       apiKey: "pk.eyJ1IjoiZ2Fydml0YTkzNiIsImEiOiJjbDg0ZWNwZXkwMmJmM3ZwNWFzbnJpcXNlIn0.8WpvYsCUf889t6-nGoc4cA",
-          //       hint: 'enterCityName'.tr,
-          //       onSelect: (place) {
-          //         controller.text = place.placeName!;
-          //       },
-          //       country: "IND",
-          //       limit: 10,
-          //       // location: Location(78.96,20.59),
-          //       closeOnSelect: true,
-          //     ),
-          //   ),
-          // );
-          Get.to(() => CityNameInputScreen(page,hintText));   // for MapMyIndia api
+          value = await Get.to(
+              () => CityNameInputScreen(page, hintText)); // for MapMyIndia api
         },
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           icon: icon,
-        suffixIcon: GestureDetector(onTap: onTap, child: CancelIconWidget()),
+          suffixIcon: GestureDetector(onTap: onTap, child: CancelIconWidget()),
         ),
       ),
     );
